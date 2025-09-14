@@ -21,9 +21,7 @@ let x = 0;
 
 while x < 100 do
 
-    write x, '*', x, '=';
-    write x * x;
-
+    write(x; '*'; x; '='; x * x);
     x = x + 1;
 
 end;
@@ -33,7 +31,7 @@ end;
 **Result**:
 
 ```soare
-let x=0;while x<100 do write x,'*',x,'=';write x*x;x=x+1;end;
+let x=0;while x<100 do write(x;'*';x;'=';x*x);x=x+1;end;
 ```
 
 ## Contributing

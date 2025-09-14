@@ -14,6 +14,28 @@
 
 /**
  * Soare Minifier
+ * 
+ * Provides basic minification for a custom language or syntax.
+ * Tokenizes a raw code string and reassembles it into a minified format,
+ * optionally limiting the number of characters per line.
+ * 
+ * Author: Antoine LANDRIEUX
+ * GitHub: https://github.com/AntoineLandrieux/SOARE/
+ *
+ * Usage:
+ *   const minifier = new Minifier('your raw code here');
+ *   minifier.Tokenizer();
+ *   const minifiedCode = minifier.Apply();
+ *
+ * Class: Minifier
+ *   - MaxCharPerLine: Maximum characters per line in output (default: 100)
+ *   - #Tokens: Private array of tokens
+ *   - rawcode: Raw code string to be minified
+ *
+ * Methods:
+ *   - constructor(rawcode): Initializes with raw code
+ *   - Tokenizer(): Tokenizes raw code into array of tokens
+ *   - Apply(): Reassembles tokens into minified code string
  */
 export class Minifier {
 
