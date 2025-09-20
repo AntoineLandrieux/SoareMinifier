@@ -38,7 +38,6 @@
  *   - Apply(): Reassembles tokens into minified code string
  */
 export class Minifier {
-
     MaxCharPerLine = 100;
     #Tokens = [];
 
@@ -59,12 +58,10 @@ export class Minifier {
      * @returns {string[]}
      */
     Tokenizer() {
-
         this.#Tokens = [];
         let index = 0;
 
         while (index < this.rawcode.length) {
-
             let adder = 1;
 
             // Space
@@ -74,32 +71,41 @@ export class Minifier {
             }
 
             // Comment
-            if (this.rawcode[index] === '?') {
-                while (!/\n|\r/.test(this.rawcode[index + adder]) && this.rawcode[index + adder]) adder++;
+            else if (this.rawcode[index] === '?') {
+                while (!/\n|\r/.test(this.rawcode[index + adder]) && this.rawcode[index + adder]) {
+                    adder++;
+                }
                 index += adder;
                 continue;
             }
 
             // Symbols
-            if ('$@,;:[]()<,+-^*/%>&|!='.includes(this.rawcode[index]));
+            else if ('$@,;:[]()<,+-^*/%>&|!='.includes(this.rawcode[index])) {
+                while ('$@,;:[]()<,+-^*/%>&|!='.includes(this.rawcode[index + adder])) {
+                    adder++;
+                }
+            }
 
             // Name
             else if (/[a-zA-Z_]/.test(this.rawcode[index])) {
-                while (/[a-zA-Z0-9_]/.test(this.rawcode[index + adder]) && this.rawcode[index + adder])
+                while (/[a-zA-Z0-9_]/.test(this.rawcode[index + adder]) && this.rawcode[index + adder]) {
                     adder++;
+                }
             }
 
             // Number
             else if (/[0-9]/.test(this.rawcode[index])) {
-                while (!isNaN(this.rawcode.slice(index, index + adder + 1)) && !/\s/.test(this.rawcode[index + adder]) && this.rawcode[index + adder])
+                while (!isNaN(this.rawcode.slice(index, index + adder + 1)) && !/\s/.test(this.rawcode[index + adder]) && this.rawcode[index + adder]) {
                     adder++;
+                }
             }
 
             // Strings
             else if (/["'`]/.test(this.rawcode[index])) {
                 const quote = this.rawcode[index];
-                while (this.rawcode[index + adder] != quote && this.rawcode[index + adder])
+                while (this.rawcode[index + adder] != quote && this.rawcode[index + adder]) {
                     adder++;
+                }
                 adder++;
             }
 
@@ -111,7 +117,6 @@ export class Minifier {
             this.#Tokens.push(this.rawcode.slice(index, index + adder));
             index += adder;
         }
-
         return this.#Tokens;
     }
 
@@ -122,7 +127,6 @@ export class Minifier {
      * @returns {string}
      */
     Apply() {
-
         let code = "";
         let ln = 1;
 
@@ -133,14 +137,12 @@ export class Minifier {
                 code += '\n';
             }
 
-            if (/[a-zA-Z0-9_]{1,}/.test(this.#Tokens[tkn]) && /[a-zA-Z0-9_]{1,}/.test(this.#Tokens[tkn + 1]))
+            if (/[a-zA-Z0-9_]{1,}/.test(this.#Tokens[tkn]) && /[a-zA-Z0-9_]{1,}/.test(this.#Tokens[tkn + 1])) {
                 code += `${this.#Tokens[tkn]} `;
-            else
+            } else {
                 code += this.#Tokens[tkn];
-
+            }
         }
-
         return code;
-
     }
 }
